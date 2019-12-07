@@ -1,0 +1,51 @@
+﻿@model IEnumerable<CarRental.Core.Models.Booking>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>List of available cars</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Book a new Car</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Car Make
+            </th>
+            <th>
+                Car Model
+            </th>
+            <th>Date Booked</th>
+            <th>Duration (days)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Car.Make)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Car.Model)
+                </td>
+                <td>
+                    @item.DateBooked.ToString("dd-MMM-yyyy")
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Duration) days
+                </td>
+                <td>
+                    @Html.ActionLink("View Details", "Details", new { id = item.BookingId })
+                    @Html.ActionLink("Book Car", "Book", new { id = item.BookingId })
+                    <a asp-action="Create" class="btn btn-info">View Details</a>
+                    <a asp-action="Create" class="btn btn-primary">Book Car</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
